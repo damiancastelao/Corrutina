@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         val miBoton: Button = findViewById(R.id.miBoton)
 
+        // declaramos el listener del boton
         miBoton.setOnClickListener {
             lanzarCorrutina()
         }
