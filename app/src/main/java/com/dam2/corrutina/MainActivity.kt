@@ -30,14 +30,17 @@ class MainActivity : AppCompatActivity() {
 
         // 'launch' se encarga de crear una corrutina Task
         // vamos a poder identificarla con 'job'
-        val job = GlobalScope.launch(Dispatchers.Main) {
+        val job1 = GlobalScope.launch(Dispatchers.Main) {
             // llamamos a una funcion que estara dentro de la corrutina
             // en esta funcion habrá un delay()
-            suspendingTask(miTexto)
+            suspendingTask1(miTexto)
             }
 
         // añadimos otra corrutina Task2 identificada como job2
         val job2 = GlobalScope.launch(Dispatchers.Main) {
+            // con el join() puedo esperar a que la tarea 1 termine
+            // para empezar la tarea2
+            job1.join()
             suspendingTask2(miTexto)
         }
     }
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // la declaramos 'suspend' porque tendrá un Delay
-    suspend fun suspendingTask(miTexto: TextView) {
+    suspend fun suspendingTask1(miTexto: TextView) {
         miTexto.text = "Corrutina"
         // paramos 3sg la corrutina pero no la UI principal
         delay(3000L)
